@@ -12,21 +12,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
-
     @Autowired
     private OrderService orderService;
-
     @PostMapping("/user/{userId}")
     public ResponseEntity<Order> createOrder(@PathVariable Long userId, @RequestBody Order order) {
         Order createdOrder = orderService.createOrder(userId, order);
         return createdOrder != null ? ResponseEntity.ok(createdOrder) : ResponseEntity.badRequest().build();
     }
-
     @GetMapping
-    public List<Order> getAllOrders() {
+        public List<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
-
     @GetMapping("/user/{userId}")
     public List<Order> getOrdersByUser(@PathVariable Long userId) {
         return orderService.getOrdersByUser(userId);
@@ -43,7 +39,6 @@ public class OrderController {
         Order updatedOrder = orderService.updateOrder(id, orderDetails);
         return updatedOrder != null ? ResponseEntity.ok(updatedOrder) : ResponseEntity.notFound().build();
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         return orderService.deleteOrder(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
